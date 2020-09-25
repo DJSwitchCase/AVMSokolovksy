@@ -1,24 +1,16 @@
 %include "io.inc"
 section .data
-Vec1 dd 5,2,4,7
+Vec1 dd 9,2,5,7
 section .text
 global CMAIN
 CMAIN:
-    MOV eax, 4
-    MOV CX, 3
     MOV edi, 0
-   
-  
-    MOV ebp, 0
-    
+    MOV ebp, 1
     MOV ax, [Vec1+edi]
-    MOV bx, [Vec1+ebp]
-
-   
-    CMP ax, bx
-    
+    MOV bx, [Vec1+ebp*4]
+    CMP ax, bx  
     JS min1
-   
+    MOV cx, bx
     jmp aftermin1
     
 
@@ -29,10 +21,9 @@ CMAIN:
      
     
     aftermin1:
-     MOV cx, bx
+  
      MOV edx, 4
-     
-     
+
     MOV ebp, 8
     
     MOV ax, [Vec1+ebp]
@@ -78,10 +69,7 @@ CMAIN:
     
     
     MOV [Vec1+edi], cx
-       PRINT_DEC 1, cx
-    NEWLINE
-    NEWLINE
-    NEWLINE
+      
    
     MOV [Vec1+edx],ebp
     
@@ -89,7 +77,10 @@ CMAIN:
     
     
     
-    
+    PRINT_DEC 1, cx
+    NEWLINE
+    NEWLINE
+    NEWLINE
 
     MOV ax, [Vec1+0]
     PRINT_DEC 1, ax
