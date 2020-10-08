@@ -1,6 +1,6 @@
 %include "io.inc"
 section .data
-Vec1 dw 3,4,5,1
+Vec1 dw 3,2,0,1
 section .text
 global CMAIN
 CMAIN:
@@ -13,22 +13,16 @@ CMAIN:
     MOV cx, [Vec1]
     Dec ecx
     ADD ebx, Vec1+2
-    
-    
     MOV dx, [ebx]
-    
     L1:
     MOV ax, [ebx+2]
     CMP dx, ax
     JS L2
-    
     mov dx, ax
 L2:
     add ebx, 2
-  
     LOOP L1
-    
-    PRINT_DEC 2, dx
+    PRINT_DEC 1, dx
     NEWLINE
     NEWLINE
     NEWLINE

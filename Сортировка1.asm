@@ -1,6 +1,6 @@
 %include "io.inc"
 section .data
-Vec1 dw 3,2,7,8
+Vec1 dw 3,7,2,8
 x dw 0
 section .text
 global CMAIN
