@@ -1,0 +1,109 @@
+x=0    [Vec1+0]
+y=5    [Vec1+edx]=cx
+
+temp=x    dx=[Vec1+0]   7=
+x=y           [Vec1+0]=cx
+y=temp    [Vec1+edx]=dx
+
+в edi номер первого элемента
+в ebx индексы +4
+
+vec1+edx = какой перемещаем
+[Vec1+edi] = первый элемент
+ebx = temp
+
+2 5 8 4
+
+
+
+когда эл 2 (YES) и когда эл 1.
+
+%include "io.inc"
+section .data
+Vec1 dd 7,5,4,2
+section .text
+global CMAIN
+CMAIN:
+    MOV eax, 4
+    MOV edi, 0
+  
+    MOV ebx, 4
+    MOV ax, [Vec1+edi]
+    MOV bx, [Vec1+ebx]
+    CMP ax, bx
+    JS min1
+    MOV cx, bx
+    jmp aftermin1
+    
+    min1:
+    MOV cx, ax
+    MOV edx, ebx
+    
+    
+    aftermin1:
+    MOV ebx, 8
+    MOV ax, [Vec1+ebx]
+    CMP ax, cx
+    JS min2
+    jmp aftermin2
+    
+    min2:
+    MOV cx, ax
+    MOV edx, ebx
+    
+    
+    aftermin2:
+    MOV ebx, 12
+    MOV ax, [Vec1+ebx]
+    CMP ax, cx
+    JS min3
+    
+    jmp letssort
+    
+    min3:
+    MOV cx, ax
+    MOV edx, ebx
+    
+    
+    
+    
+    
+    
+    letssort:
+    MOV ebx, [Vec1+edi]
+    MOV [Vec1+edi], cx
+    MOV [Vec1+edx],ebx
+    mov edi, 0 
+    mov CX, 5
+    PRINT_DEC 1, CX
+    NEWLINE
+    NEWLINE
+    NEWLINE
+      L1:
+    ADD edi, 1
+    LOOP L1
+    PRINT_DEC 1, edi
+    NEWLINE
+    NEWLINE
+    NEWLINE
+    
+    
+    
+    PRINT_DEC 1, edx
+    NEWLINE
+    NEWLINE
+    
+
+    MOV ax, [Vec1+0]
+    PRINT_DEC 1, ax
+    NEWLINE
+    MOV ax, [Vec1+4]
+    PRINT_DEC 1, ax
+    NEWLINE
+    MOV ax, [Vec1+8]
+    PRINT_DEC 1, ax
+    NEWLINE
+    MOV ax, [Vec1+12]
+    PRINT_DEC 1, ax
+    NEWLINE
+    ret
