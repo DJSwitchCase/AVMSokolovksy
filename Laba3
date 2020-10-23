@@ -1,0 +1,47 @@
+%include "io.inc"
+section .data
+Vec:
+TIMES 125 dd -10
+TIMES 125 dd -20
+;2147483647
+section .text
+global CMAIN
+CMAIN:
+    mov ebp, esp
+    xor edx, edx
+    mov ebp, esp
+    mov eax, 0
+    mov ecx,250
+  
+    L2:
+    
+ ;   MOV eax , [Vec + ecx * 4 - 4]
+ ;   MOV ebx , 1
+    
+  ;  IMUL ebx
+
+ ;   MOV  [Vec + ecx * 4 - 4] , eax
+ ;   LOOP L2        
+    
+    xor eax , eax
+  ;  mov ecx,250
+    
+    L1:
+        ;add eax, [Vec + ecx * 4 - 4]
+        CMP dword[Vec + ecx * 4 - 4], 0
+        JS L3
+        add eax, [Vec + ecx * 4 - 4]
+        adc edx,0
+        JMP L4
+        L3:
+        NEG dword[Vec + ecx * 4 - 4]
+        SUB eax, [Vec + ecx * 4 - 4]
+        SBB edx, 0
+        L4:
+    LOOP L1
+    MOV ebx,250
+    IDIV EBX
+    PRINT_DEC 4, eax
+    xor eax,eax
+    ret
+    
