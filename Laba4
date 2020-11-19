@@ -1,0 +1,60 @@
+%include "io.inc"
+section .data
+x dd 11000000 ;или тип меняем на dw с соответствующим изменением кол-ва разрядов
+y dd 10001000
+;Написать функцию max(x,y). Передавать тип числа.
+section .text
+global CMAIN
+CMAIN:
+mov ebp, esp; for correct debugging
+xor eax, eax
+mov eax, 0
+mov ebx, 0
+mov ecx, 0
+
+mov eax, [x]
+mov ebx, [y]
+GET_UDEC 4, edx ; Передаём тип числа. Если 2, то используем регистры ax, bx, cx.
+; Если 4, то abx, ebx, ecx соответственно.
+
+cmp edx, 4 ;Проверяем, 4 бита, или 2 бита.
+JZ size4
+jmp size2
+
+
+size4:
+call MAX4 ; вызов max(x,y)
+jmp Conclusion
+
+size2:
+call MAX2 ; вызов max(x,y)
+jmp Conclusion
+
+
+MAX4:
+push ebx
+pop ecx ; в ecx кладем ebx. Стек здесь используем, чтобы ознакомиться с его работой
+cmp eax, ecx ; сравниваем ebx и eax
+JA Above4 ; else jmp Less4:
+Less4:
+mov eax, ecx
+ret ;return
+Above4:
+ret ;return
+
+
+MAX2:
+push bx
+pop cx
+cmp ax, cx
+JA Above2
+Less2:
+mov ax, cx
+ret ;return
+Above2:
+ret ;return
+
+
+Conclusion:
+PRINT_DEC 4, eax
+ret 
